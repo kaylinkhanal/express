@@ -9,22 +9,16 @@ const users =[
     {id:456,name:'gopal', address:'ktm'}
 ]
 
-app.post('/register', (req, res) => {
-//    console.log(req.body)
-    const matchedList = users.filter((item,id)=>{
-        if(item.name === req.body.name){
-            return item
+app.put('/users/:id', (req, res) => {
+    const updatedUser = users.map((item,id)=>{
+        if(item.id == req.params.id){
+           item.name = req.body.name
+           item.address = req.body.address
         }
+        return item
     })
-    if(matchedList.length>0) {
-        res.json({
-            msg: 'User already exist'
-        })
-    }else{
-        res.json({
-            msg: 'Registration successful'
-        })
-    }
+
+    res.json(updatedUser)
 })
 
 app.listen(port, () => {
