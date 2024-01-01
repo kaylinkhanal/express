@@ -9,16 +9,11 @@ const users =[
     {id:456,name:'gopal', address:'ktm'}
 ]
 
-app.put('/users/:id', (req, res) => {
-    const updatedUser = users.map((item,id)=>{
-        if(item.id == req.params.id){
-           item.name = req.body.name
-           item.address = req.body.address
-        }
-        return item
+app.delete('/users/:id', (req, res) => {
+    const filteredItem = users.filter((item,id)=>{
+        return item.id != req.params.id
     })
-
-    res.json(updatedUser)
+    res.json(filteredItem)
 })
 
 app.listen(port, () => {
